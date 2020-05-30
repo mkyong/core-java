@@ -1,16 +1,16 @@
 package com.mkyong.java14.jep370;
 
-import jdk.incubator.foreign.MemoryAddress;
+/*import jdk.incubator.foreign.MemoryAddress;
 import jdk.incubator.foreign.MemoryHandles;
 import jdk.incubator.foreign.MemorySegment;
 
 import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.nio.ByteOrder;*/
 
 // --add-modules jdk.incubator.foreign
 public class FroignMemory {
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         VarHandle intHandle = MemoryHandles.varHandle(int.class, ByteOrder.nativeOrder());
 
@@ -26,6 +26,6 @@ public class FroignMemory {
 
         }
 
-    }
+    }*/
 
 }
