@@ -4,10 +4,8 @@ public class TempFilePath {
 
     public static void main(String[] args) {
 
-        //String tmpdir = System.getProperty("java.io.tmpdir");
-        //System.out.println("Temp file path: " + tmpdir);
-
-        // file.separator
+        String tmpdir = System.getProperty("java.io.tmpdir");
+        System.out.println("Temp file path: " + tmpdir);
 
         // Java NIO
         /*try {
