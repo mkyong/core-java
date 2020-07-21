@@ -1,6 +1,6 @@
 package com.mkyong.io.temp;
 
-public class TempFilePath {
+public class TempFileGetPath {
 
     public static void main(String[] args) {
 
