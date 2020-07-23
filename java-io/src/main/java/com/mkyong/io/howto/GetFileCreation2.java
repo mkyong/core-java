@@ -48,14 +48,8 @@ DIR [drive:][path][filename] [/A[[:]attributes]] [/B] [/C] [/D] [/L] [/N]
 
 Switches may be preset in the DIRCMD environment variable.  Override
 preset switches by prefixing any switch with - (hyphen)--for example, /-W.
- */
-public class GetFileCreation2 {
 
-    public static void main(String[] args) {
-
-        try{
-
-            /*
+/*
              Volume in drive C has no label.
              Volume Serial Number is A446-18E6
 
@@ -64,18 +58,23 @@ public class GetFileCreation2 {
             23/07/2020  06:52 AM                 9 test4.log
                1 File(s)              9 bytes
                0 Dir(s)  55,806,730,240 bytes free
-             */
-            Process proc =
-                    Runtime.getRuntime().exec("cmd /c dir c:\\test\\test4.log /tc");
 
-            BufferedReader br =
-                    new BufferedReader(
-                            new InputStreamReader(proc.getInputStream()));
+ */
+public class GetFileCreation2 {
 
-            String data ="";
+    public static void main(String[] args) {
 
+        Process proc;
+        BufferedReader br = null;
+
+        try {
+
+            proc = Runtime.getRuntime().exec("cmd /c dir c:\\test\\test4.log /tc");
+            br = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+
+            String data = "";
             //it's quite stupid but work, ignore first 5 lines
-            for(int i=0; i<6; i++){
+            for (int i = 0; i < 6; i++) {
                 data = br.readLine();
             }
 
@@ -83,16 +82,24 @@ public class GetFileCreation2 {
 
             //split by space
             StringTokenizer st = new StringTokenizer(data);
-            String date = st.nextToken();//Get date
-            String time = st.nextToken();//Get time
+            String date = st.nextToken(); //Get date
+            String time = st.nextToken(); //Get time
 
             System.out.println("Creation Date  : " + date);
             System.out.println("Creation Time  : " + time);
 
-        }catch(IOException e){
+        } catch (IOException e) {
 
             e.printStackTrace();
 
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
     }
