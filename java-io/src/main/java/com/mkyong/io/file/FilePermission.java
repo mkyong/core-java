@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.DosFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.util.EnumSet;
@@ -15,7 +16,8 @@ public class FilePermission {
 
         try {
 
-            Path path = Paths.get("/home/mkyong/test/test4.log");
+            Path path = Paths.get("C:\\test\\test4.log");
+            //Path path = Paths.get("/home/mkyong/test/test4.log");
 
             Set<PosixFilePermission> perms = EnumSet.of(
                     PosixFilePermission.OWNER_READ,
@@ -31,8 +33,14 @@ public class FilePermission {
 
             /*Set<PosixFilePermission> perms =
                     PosixFilePermissions.fromString("rwxrwxrwx");*/
-
             Files.createFile(path);
+
+            /*
+            PosixFilePermissions On Windows
+            Exception in thread "main" java.lang.UnsupportedOperationException
+	            at java.base/java.nio.file.Files.setPosixFilePermissions(Files.java:2155)
+	            at com.mkyong.io.file.FilePermission.main(FilePermission.java:37)
+             */
             Files.setPosixFilePermissions(path, PosixFilePermissions.fromString("rwxrwxrwx"));
 
         } catch (IOException e) {

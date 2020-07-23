@@ -17,7 +17,8 @@ public class GetLastModifiedTime {
 
     public static void main(String[] args) {
 
-        String fileName = "/home/mkyong/test";
+        //String fileName = "/home/mkyong/test";
+        String fileName = "c:\\test\\";
 
         try {
 
