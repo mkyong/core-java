@@ -6,8 +6,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
-// https://docs.oracle.com/javase/tutorial/essential/io/copy.html
 public class CopyFile {
 
     public static void main(String[] args) {
@@ -95,8 +95,8 @@ public class CopyFile {
         // if toFile folder doesn't exist, Files.copy throws NoSuchFileException
         // if toFile parent folder doesn't exist, create it.
         Path parent = toFile.getParent();
-        if(parent!=null){
-            if(Files.notExists(parent)){
+        if (parent != null) {
+            if (Files.notExists(parent)) {
                 Files.createDirectories(parent);
             }
         }
@@ -105,12 +105,12 @@ public class CopyFile {
         Files.copy(fromFile, toFile);
 
         // if toFile exist, replace it.
-        // Files.copy(fromFile, toFile, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(fromFile, toFile, StandardCopyOption.REPLACE_EXISTING);
 
         // multiple StandardCopyOption
-        /*Files.copy(fromFile, toFile, StandardCopyOption.REPLACE_EXISTING
-                , StandardCopyOption.REPLACE_EXISTING);*/
-
+        Files.copy(fromFile, toFile, StandardCopyOption.REPLACE_EXISTING
+                , StandardCopyOption.REPLACE_EXISTING);
 
     }
+
 }
