@@ -6,7 +6,10 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.stream.Stream;
 
 public class CopyDirectory {
 
@@ -16,7 +19,7 @@ public class CopyDirectory {
         String toToDirectory = "/home/mkyong/test2/";
 
         try {
-            copyDirectoryNIO(fromDirectory, toToDirectory);
+            copyDirectoryJavaNIO(Paths.get(fromDirectory), Paths.get(toToDirectory));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,7 +38,6 @@ public class CopyDirectory {
 
         Files.walkFileTree(Paths.get(fromDir), new TreeCopyFileVisitor(toDir));
 
-
     }
 
     public static void copyFileCommonIO(String from, String to) throws IOException {
@@ -47,5 +49,42 @@ public class CopyDirectory {
 
     }
 
+    public static void copyDirectoryJavaNIO(Path source, Path target)
+            throws IOException {
+
+        // is this a directory?
+        if (Files.isDirectory(source)) {
+
+            //if target directory exist?
+            if (Files.notExists(target)) {
+                // create it
+                Files.createDirectories(target);
+                System.out.println("Directory created : " + target);
+            }
+
+            // list all files or folders from the source, Java 1.8, returns stream
+            // try-with-resources, auto-close
+            try (Stream<Path> paths = Files.list(source)) {
+
+                paths.forEach(p -> {
+
+                    try {
+                        // create target path from the source path
+                        Path targetPath = target.resolve(source.relativize(p));
+                        copyDirectoryJavaNIO(p, targetPath);
+                    } catch (IOException e) {
+                        System.err.println("IO errors : " + e.getMessage());
+                    }
+
+                });
+
+            }
+
+        } else {
+            // if file exists, replace it
+            Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("File created : " + target);
+        }
+    }
 
 }
