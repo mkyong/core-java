@@ -8,27 +8,26 @@ import java.nio.file.attribute.BasicFileAttributes;
 // https://stackoverflow.com/questions/6214703/copy-entire-directory-contents-to-another-directory
 public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
 
-    private Path fromDir;
-    private Path toDir;
+    private Path source;
+    private final Path target;
 
-    public TreeCopyFileVisitor(String toDir) {
-        this.toDir = Paths.get(toDir);
+    public TreeCopyFileVisitor(String source, String target) {
+        this.source = Paths.get(source);
+        this.target = Paths.get(target);
     }
 
+    /**
+     * source = /home/mkyong/test, dir = /home/mkyong/test/subtest , relativize = subtest
+     * System.out.println(source.relativize(dir));
+     *
+     * target = /home/mkyong/test2, relativize = subtest , resolve = /home/mkyong/test2/subtest
+     * System.out.println(target.resolve(source.relativize(dir)));
+     */
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
 
-        if (fromDir == null) {
-            fromDir = dir;
-        } else {
-
-            // fromDir = /home/mkyong/test, dir = /home/mkyong/test/subtest , relativize = subtest
-            System.out.println(fromDir.relativize(dir));
-
-            // toDir = /home/mkyong/test2, relativize = subtest , resolve = /home/mkyong/test2/subtest
-            System.out.println(toDir.resolve(fromDir.relativize(dir)));
-
-            Path resolve = toDir.resolve(fromDir.relativize(dir));
+        Path resolve = target.resolve(source.relativize(dir));
+        if (Files.notExists(resolve)) {
             Files.createDirectories(resolve);
             System.out.println("Create directories : " + resolve);
         }
@@ -39,11 +38,20 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
-        Path resolve = toDir.resolve(fromDir.relativize(file));
-        Files.copy(file, resolve);
-        System.out.println("Copy File to : " + resolve);
+        Path resolve = target.resolve(source.relativize(file));
+        Files.copy(file, resolve, StandardCopyOption.REPLACE_EXISTING);
+        System.out.println(
+                String.format("Copy File from \t'%s' to \t'%s'", file, resolve)
+        );
 
         return FileVisitResult.CONTINUE;
 
     }
+
+    @Override
+    public FileVisitResult visitFileFailed(Path file, IOException exc) {
+        System.err.format("Unable to copy: %s: %s%n", file, exc);
+        return FileVisitResult.CONTINUE;
+    }
+
 }
