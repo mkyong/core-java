@@ -1,8 +1,12 @@
 package com.mkyong.io.howto;
 
+import com.mkyong.io.utils.TreeCopyFileVisitor;
+import org.apache.commons.io.FileUtils;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
@@ -15,11 +19,10 @@ public class CopyDirectory {
 
         try {
 
-            // copyDirectoryFileVisitor(fromDirectory, toToDirectory);
+            copyDirectoryFileVisitor(fromDirectory, toToDirectory);
             // copyFileCommonIO(fromDirectory, toToDirectory);
-            //copyDirectoryJavaNIO(Paths.get(fromDirectory), Paths.get(toToDirectory));
-
-            copyDirectoryLegacyIO(new File(fromDirectory), new File(toToDirectory));
+            // copyDirectoryJavaNIO(Paths.get(fromDirectory), Paths.get(toToDirectory));
+            // copyDirectoryLegacyIO(new File(fromDirectory), new File(toToDirectory));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,7 +32,7 @@ public class CopyDirectory {
 
     }
 
-    /*public static void copyDirectoryFileVisitor(String source, String target) throws IOException {
+    public static void copyDirectoryFileVisitor(String source, String target) throws IOException {
 
         TreeCopyFileVisitor fileVisitor = new TreeCopyFileVisitor(source, target);
         Files.walkFileTree(Paths.get(source), fileVisitor);
@@ -43,7 +46,7 @@ public class CopyDirectory {
 
         FileUtils.copyDirectory(fromDir, toDir);
 
-    }*/
+    }
 
     public static void copyDirectoryJavaNIO(Path source, Path target)
             throws IOException {
