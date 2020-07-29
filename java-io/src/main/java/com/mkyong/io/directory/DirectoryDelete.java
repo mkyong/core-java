@@ -22,10 +22,10 @@ public class DirectoryDelete {
         try {
 
             createDummyFiles();
-            //deleteDirectoryJava7(dir);
+            deleteDirectoryJava7(dir);
             //deleteDirectoryJava8(dir);
             //FileUtils.deleteDirectory(new File(dir));
-            deleteDirectoryLegacyIO(new File(dir));
+            //deleteDirectoryLegacyIO(new File(dir));
 
             System.out.println("Done");
 
