@@ -85,9 +85,7 @@ public class CopyDirectory {
         } else {
             // if file exists, replace it
             Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println(
-                    String.format("Copy File from \t'%s' to \t'%s'", source, target)
-            );
+            System.out.printf("Copy File from \t'%s' to \t'%s'%n", source, target);
         }
     }
 

@@ -5,7 +5,6 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
 // https://docs.oracle.com/javase/tutorial/essential/io/examples/Copy.java
-// https://stackoverflow.com/questions/6214703/copy-entire-directory-contents-to-another-directory
 public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
 
     private Path source;
@@ -40,9 +39,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
 
         Path resolve = target.resolve(source.relativize(file));
         Files.copy(file, resolve, StandardCopyOption.REPLACE_EXISTING);
-        System.out.println(
-                String.format("Copy File from \t'%s' to \t'%s'", file, resolve)
-        );
+        System.out.printf("Copy File from \t'%s' to \t'%s'%n", file, resolve);
 
         return FileVisitResult.CONTINUE;
 
