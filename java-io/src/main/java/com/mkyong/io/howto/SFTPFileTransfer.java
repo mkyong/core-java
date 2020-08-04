@@ -4,7 +4,7 @@ import com.jcraft.jsch.*;
 
 public class SFTPFileTransfer {
 
-    private static final String REMOTE_HOST = "1.1.1.1";
+    private static final String REMOTE_HOST = "45.79.59.116";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
     private static final int REMOTE_PORT = 22;
@@ -21,8 +21,12 @@ public class SFTPFileTransfer {
         try {
 
             JSch jsch = new JSch();
+
             jsch.setKnownHosts("/home/mkyong/.ssh/known_hosts");
             jschSession = jsch.getSession(USERNAME, REMOTE_HOST, REMOTE_PORT);
+
+            // not recommend, please use jsch.setKnownHosts, security concern
+            //jschSession.setConfig("StrictHostKeyChecking", "no");
 
             // authenticate using private key
             // jsch.addIdentity("/home/mkyong/.ssh/id_rsa");
