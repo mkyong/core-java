@@ -1,19 +1,16 @@
-package com.mkyong.io.howto;
+package com.mkyong.io.file;
 
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 
-public class CopyFile {
+public class FileCopy {
 
     public static void main(String[] args) {
 
-        String fromFile = "/home/mkyong/dev/db.debug.conf";
-        String toFile = "/home/mkyong/live/db.conf";
+        String fromFile = "/home/mkyong/data/db.debug.conf";
+        String toFile = "/home/mkyong/data/deploy/db.conf";
 
         try {
             copyFileNIO(fromFile, toFile);
@@ -102,14 +99,17 @@ public class CopyFile {
         }
 
         // default - if toFile exist, throws FileAlreadyExistsException
-        Files.copy(fromFile, toFile);
+        //Files.copy(fromFile, toFile);
 
         // if toFile exist, replace it.
-        Files.copy(fromFile, toFile, StandardCopyOption.REPLACE_EXISTING);
+        //Files.copy(fromFile, toFile, StandardCopyOption.REPLACE_EXISTING);
 
         // multiple StandardCopyOption
-        Files.copy(fromFile, toFile, StandardCopyOption.REPLACE_EXISTING
-                , StandardCopyOption.REPLACE_EXISTING);
+        /*CopyOption[] options = { StandardCopyOption.REPLACE_EXISTING,
+                StandardCopyOption.COPY_ATTRIBUTES,
+                LinkOption.NOFOLLOW_LINKS };
+
+        Files.copy(fromFile, toFile, options);*/
 
     }
 

@@ -13,7 +13,7 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 // https://www.mkyong.com/java/java-how-to-read-a-file/
-public class ReadFile {
+public class FileRead {
 
     public static void main(String[] args) throws IOException {
 
