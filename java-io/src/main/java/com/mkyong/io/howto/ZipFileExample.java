@@ -1,9 +1,13 @@
 package com.mkyong.io.howto;
 
+import net.lingala.zip4j.ZipFile;
+
 import java.io.*;
 import java.net.URI;
 import java.nio.file.*;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -17,7 +21,8 @@ public class ZipFileExample {
 
         try {
 
-            ZipFileExample.zipSingleFileNio(source, zipFileName);
+            //ZipFileExample.zipSingleFile(source, zipFileName);
+            ZipFileExample.zipFileWithoutSaveLocal(zipFileName);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,5 +81,45 @@ public class ZipFileExample {
 
     }
 
+    // create a file (without save locally) and add to zip
+    public static void zipFileWithoutSaveLocal(String zipFileName) throws IOException {
 
+        String data = "Test data \n123\n456";
+        String fileNameInZip = "abc.txt";
+
+        try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFileName))) {
+
+            ZipEntry zipEntry = new ZipEntry(fileNameInZip);
+            zos.putNextEntry(zipEntry);
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(data.getBytes());
+            // one line, able to handle large size?
+            //zos.write(bais.readAllBytes());
+
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = bais.read(buffer)) > 0) {
+                zos.write(buffer, 0, len);
+            }
+
+            zos.closeEntry();
+        }
+
+    }
+
+    public static void zip4j() throws IOException {
+
+        // zip file with a single file
+        new ZipFile("filename.zip").addFile("file.txt");
+
+        // zip file with multiple files
+        List<File> files = Arrays.asList(
+                new File("file1.txt"), new File("file2.txt"));
+        new ZipFile("filename.zip").addFiles(files);
+
+        // zip file with a folder
+        new ZipFile("filename.zip").addFolder(new File("/home/mkyong/folder"));
+
+
+    }
 }

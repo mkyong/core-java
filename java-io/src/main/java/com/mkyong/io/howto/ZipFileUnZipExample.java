@@ -1,5 +1,7 @@
 package com.mkyong.io.howto;
 
+import net.lingala.zip4j.ZipFile;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,7 +16,8 @@ public class ZipFileUnZipExample {
 
     public static void main(String[] args) {
 
-        Path source = Paths.get("/home/mkyong/zip/test-nio.zip");
+        //Path source = Paths.get("/home/mkyong/projects/core-java/java-io/example.zip");
+        Path source = Paths.get("/home/mkyong/zip/test.zip");
         Path target = Paths.get("/home/mkyong/zip/");
 
         try {
@@ -29,12 +32,12 @@ public class ZipFileUnZipExample {
 
     }
 
-    /*public static void unzipFolderZip4j(Path source, Path target) throws IOException {
+    public static void unzipFolderZip4j(Path source, Path target) throws IOException {
 
         new ZipFile(source.toFile())
                 .extractAll(target.toString());
 
-    }*/
+    }
 
     public static void unzipFolder(Path source, Path target) throws IOException {
 
