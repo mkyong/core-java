@@ -1,4 +1,4 @@
-package com.mkyong.io.howto;
+package com.mkyong.io.howto.compress;
 
 import net.lingala.zip4j.ZipFile;
 

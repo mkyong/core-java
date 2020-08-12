@@ -1,4 +1,4 @@
-package com.mkyong.io.howto;
+package com.mkyong.io.howto.compress;
 
 import net.lingala.zip4j.ZipFile;
 
@@ -12,7 +12,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class ZipFileUnZipExample {
+public class ZipUnZipExample {
 
     public static void main(String[] args) {
 
