@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-public class GZipExample {
+public class GzipExample {
 
     public static void main(String[] args) {
 
@@ -33,7 +33,7 @@ public class GZipExample {
 
         try {
 
-            GZipExample.compressGzip(source, target);
+            GzipExample.compressGzip(source, target);
             //GZipExample.compressGzipNio(source, target);
 
             //GZipExample.decompressGzip(source, target);

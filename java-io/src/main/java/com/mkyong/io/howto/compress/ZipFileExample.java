@@ -120,6 +120,5 @@ public class ZipFileExample {
         // zip file with a folder
         new ZipFile("filename.zip").addFolder(new File("/home/mkyong/folder"));
 
-
     }
 }

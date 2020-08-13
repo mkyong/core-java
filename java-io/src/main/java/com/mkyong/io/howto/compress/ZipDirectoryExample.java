@@ -16,9 +16,9 @@ public class ZipDirectoryExample {
 
     public static void main(String[] args) {
 
-        // zip the entire java 8 folder
-        //Path source = Paths.get("/usr/lib/jvm/java-8-openjdk-amd64/");
-        Path source = Paths.get("/home/mkyong/test/");
+        // zip the entire java 8 jdk folder
+        Path source = Paths.get("/usr/lib/jvm/java-8-openjdk-amd64/");
+        //Path source = Paths.get("/home/mkyong/test/");
 
         if (!Files.isDirectory(source)) {
             System.out.println("Please provide a folder.");
