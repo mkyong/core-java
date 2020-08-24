@@ -1,4 +1,4 @@
-package com.mkyong.io.howto;
+package com.mkyong.io.directory;
 
 import com.mkyong.io.utils.TreeCopyFileVisitor;
 import org.apache.commons.io.FileUtils;
@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
-public class CopyDirectory {
+public class DirectoryCopy {
 
     public static void main(String[] args) {
 
