@@ -1,15 +1,10 @@
-package com.mkyong.io.howto.resources;
+package com.mkyong.io.utils;
 
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystem;
-import java.nio.file.*;
-import java.util.Collections;
+import java.nio.file.Files;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FileResourcesUtils {
 
@@ -79,7 +74,7 @@ public class FileResourcesUtils {
     }
 
     // Get all path from the JAR file
-    private List<Path> getPathsFromResourceJAR() throws URISyntaxException, IOException {
+    /*private List<Path> getPathsFromResourceJAR() throws URISyntaxException, IOException {
 
         List<Path> result;
 
@@ -115,7 +110,7 @@ public class FileResourcesUtils {
                 .collect(Collectors.toList());
 
         return collect;
-    }
+    }*/
 
     // print input stream
     private static void printInputStream(InputStream inputStream) throws IOException {
