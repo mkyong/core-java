@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class FileResourcesUtils {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, URISyntaxException {
 
         FileResourcesUtils app = new FileResourcesUtils();
 
@@ -98,14 +98,18 @@ public class FileResourcesUtils {
 
         Resource URL Sample: file:java-io.jar!/json/file1.json
      */
-    private File getFileFromResource(String fileName) {
+    private File getFileFromResource(String fileName) throws URISyntaxException {
 
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource(fileName);
         if (resource == null) {
             throw new IllegalArgumentException("file not found! " + fileName);
         } else {
-            return new File(resource.getFile());
+
+            // failed if files have whitespaces or special characters
+            //return new File(resource.getFile());
+
+            return new File(resource.toURI());
         }
 
     }
