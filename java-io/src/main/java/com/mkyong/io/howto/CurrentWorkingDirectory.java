@@ -4,9 +4,6 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Paths;
 
-/*
-    What about System.getProperty("user.dir")? It'll give you the working directory from where your program was launched.
-*/
 public class CurrentWorkingDirectory {
 
     public static void main(String[] args) {
