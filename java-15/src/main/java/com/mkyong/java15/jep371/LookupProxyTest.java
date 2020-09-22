@@ -7,6 +7,17 @@ import java.util.Base64;
 
 public class LookupProxyTest {
 
+    /*
+    package com.mkyong.java15.jep371;
+
+        public class LookUpProxy{
+
+            public static Integer lookup() {
+                return 1;
+            }
+        }
+    }
+     */
     static final String CLASS_IN_BASE64 =
             "yv66vgAAADcAFQoABAANCgAOAA8HABAHABEBAAY8aW5pdD4BAAMoKV" +
             "YBAARDb2RlAQAPTGluZU51bWJlclRhYmxlAQAGbG9va3VwAQAVKClM" +
