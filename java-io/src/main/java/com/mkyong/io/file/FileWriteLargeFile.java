@@ -4,11 +4,12 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class WriteFileLarge {
+// write 5 millions line to a file, 1053 chars per line, file size around 5G
+public class FileWriteLargeFile {
 
     public static void main(String[] args) {
 
-        String fileName = "/home/mkyong/large-file.txt";
+        String fileName = "/home/mkyong/test/large-file.txt";
 
         // 1053 chars per line
         String content = "Hello 123456 ";
@@ -16,6 +17,7 @@ public class WriteFileLarge {
         content = content + content + content;
         content = content + content + content;
         content = content + content + content;
+
         System.out.println(content.length());
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {

@@ -6,6 +6,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class FileAppend {
 
     public static void main(String[] args) throws IOException {
 
-        //Path path = Paths.get("/home/mkyong/test/abc.txt");
+        Path path = Paths.get("/home/mkyong/test/abc.txt");
         appendToFile(path, "hello world" + NEW_LINE);
 
         /*File file = new File("/home/mkyong/test/abc.txt");
