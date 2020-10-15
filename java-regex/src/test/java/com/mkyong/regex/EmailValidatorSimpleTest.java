@@ -1,7 +1,6 @@
 package com.mkyong.regex;
 
 import com.mkyong.regex.email.EmailValidatorSimple;
-import com.mkyong.regex.email.EmailValidatorStrict;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -40,7 +39,7 @@ public class EmailValidatorSimpleTest {
     static Stream<String> invalidEmailProvider() {
         return Stream.of(
                 "hello",                            // email need at least one @
-                "hello@ "                           // domain cant end with a space (whitespace)
+                "hello@ "                           // domain cant end with space (whitespace)
         );
     }
 
