@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class IPv4ValidatorTest {
 
-    /*@ParameterizedTest(name = "#{index} - Run test with IPv4 = {0}")
+    @ParameterizedTest(name = "#{index} - Run test with IPv4 = {0}")
     @MethodSource("validIPv4Provider")
     void test_ipv4_apache_valid(String ipv4) {
         assertTrue(IPv4ValidatorApache.isValid(ipv4));
@@ -20,7 +20,7 @@ public class IPv4ValidatorTest {
     @MethodSource("invalidIPv4Provider")
     void test_ipv4_apache_invalid(String ipv4) {
         assertFalse(IPv4ValidatorApache.isValid(ipv4));
-    }*/
+    }
 
     @ParameterizedTest(name = "#{index} - Run test with IPv4 = {0}")
     @MethodSource("validIPv4Provider")
