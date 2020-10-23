@@ -1,4 +1,4 @@
-package com.mkyong.regex;
+package com.mkyong.regex.email;
 
 import com.mkyong.regex.email.EmailValidatorSimple;
 import org.junit.jupiter.params.ParameterizedTest;
