@@ -3,10 +3,10 @@ package com.mkyong.regex.date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DateValidator {
+public class DateValidatorRegex {
 
     // ?: match but don't capture it
-    // yyyy-mm-dd
+    // uuuu-M-d
     private static final String DATE_PATTERN =
             "^((?:19|20)[0-9][0-9])-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$";
 

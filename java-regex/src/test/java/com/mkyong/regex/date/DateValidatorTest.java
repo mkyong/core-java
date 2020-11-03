@@ -12,15 +12,27 @@ public class DateValidatorTest {
 
     @ParameterizedTest(name = "#{index} - Run test with date = {0}")
     @MethodSource("validDateProvider")
-    void test_date_valid(String date) {
-        assertTrue(DateValidator.isValid(date));
+    void test_date_regex_valid(String date) {
+        assertTrue(DateValidatorRegex.isValid(date));
     }
 
     @ParameterizedTest(name = "#{index} - Run test with date = {0}")
     @MethodSource("invalidDateProvider")
-    void test_date_invalid(String date) {
-        assertFalse(DateValidator.isValid(date));
+    void test_date_regex_invalid(String date) {
+        assertFalse(DateValidatorRegex.isValid(date));
     }
+
+    /*@ParameterizedTest(name = "#{index} - Run test with date = {0}")
+    @MethodSource("validDateProvider")
+    void test_date_java_api_valid(String date) {
+        assertTrue(DateValidatorSimpleDateFormat.isValid(date));
+    }
+
+    @ParameterizedTest(name = "#{index} - Run test with date = {0}")
+    @MethodSource("invalidDateProvider")
+    void test_date_java_api_invalid(String date) {
+        assertFalse(DateValidatorSimpleDateFormat.isValid(date));
+    }*/
 
     static Stream<String> validDateProvider() {
         return Stream.of(
@@ -57,6 +69,7 @@ public class DateValidatorTest {
                 "2020-2-30",                // leap year, feb max 29
                 "2019-2-29",                // common year, feb max 28
                 "1900-02-29",               // 1900 is a common year, feb max 28
+                "12012-04-05",              // support only 4 digits years
                 " ",                        // empty
                 "");                        // empty
     }
