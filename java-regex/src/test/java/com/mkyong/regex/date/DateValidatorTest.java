@@ -25,13 +25,13 @@ public class DateValidatorTest {
     /*@ParameterizedTest(name = "#{index} - Run test with date = {0}")
     @MethodSource("validDateProvider")
     void test_date_java_api_valid(String date) {
-        assertTrue(DateValidatorSimpleDateFormat.isValid(date));
+        assertTrue(DateValidatorDateTimeFormatter.isValid(date));
     }
 
     @ParameterizedTest(name = "#{index} - Run test with date = {0}")
     @MethodSource("invalidDateProvider")
     void test_date_java_api_invalid(String date) {
-        assertFalse(DateValidatorSimpleDateFormat.isValid(date));
+        assertFalse(DateValidatorDateTimeFormatter.isValid(date));
     }*/
 
     static Stream<String> validDateProvider() {
