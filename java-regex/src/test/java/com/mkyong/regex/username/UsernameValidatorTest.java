@@ -10,17 +10,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UsernameValidatorTest {
 
-    @ParameterizedTest(name = "#{index} - Run test with date = {0}")
+    @ParameterizedTest(name = "#{index} - Run test with username = {0}")
     @MethodSource("validUsernameProvider")
-    void test_username_regex_valid(String date) {
-        assertTrue(UsernameValidator.isValid(date));
+    void test_username_regex_valid(String username) {
+        assertTrue(UsernameValidator.isValid(username));
         //assertTrue(UsernameValidatorCode.isValid(date));
     }
 
-    @ParameterizedTest(name = "#{index} - Run test with date = {0}")
+    @ParameterizedTest(name = "#{index} - Run test with username = {0}")
     @MethodSource("invalidUsernameProvider")
-    void test_username_regex_invalid(String date) {
-        assertFalse(UsernameValidator.isValid(date));
+    void test_username_regex_invalid(String username) {
+        assertFalse(UsernameValidator.isValid(username));
         //assertFalse(UsernameValidatorCode.isValid(date));
     }
 
