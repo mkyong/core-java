@@ -71,6 +71,21 @@ public class FileResourcesUtils {
 
     }
 
+    public static InputStream getFileFromResourceFolder(String fileName) {
+
+        // for static access
+        ClassLoader classLoader = FileResourcesUtils.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+        // the stream holding the file content
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+            return inputStream;
+        }
+
+    }
+
     // get a file from resources folder
     // works in everywhere, IDEA, unit test and JAR file.
     private InputStream getFileFromResourceAsStream(String fileName) {
