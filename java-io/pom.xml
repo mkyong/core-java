@@ -10,7 +10,7 @@
     <version>1.0</version>
 
     <name>java-io</name>
-    <url>https://www.mkyong.com</url>
+    <url>https://mkyong.com</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

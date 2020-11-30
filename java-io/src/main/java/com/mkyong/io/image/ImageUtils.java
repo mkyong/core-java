@@ -3,8 +3,11 @@ package com.mkyong.io.image;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ImageUtils {
 
@@ -40,6 +43,33 @@ public class ImageUtils {
 
         // save it somewhere
         ImageIO.write(newBi, "png", new File("c:\\test\\google-decode.png"));
+
+    }
+
+    private static void test() throws IOException {
+
+        Path source = Paths.get("c:\\test\\mkyong.png");
+        Path target = Paths.get("c:\\test\\mkyong-new.png");
+
+        BufferedImage bi = ImageIO.read(source.toFile());
+
+        // convert BufferedImage to byte[]
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bi, "png", baos);
+        byte[] bytes = baos.toByteArray();
+
+        // convert byte[] back to a BufferedImage
+        InputStream is = new ByteArrayInputStream(bytes);
+        BufferedImage newBi = ImageIO.read(is);
+
+        // add a text on top on the image, optional, just for fun
+        Graphics2D g = newBi.createGraphics();
+        g.setFont(new Font("TimesRoman", Font.BOLD, 30));
+        g.setColor(Color.BLACK);
+        g.drawString("Hello World", 100, 100);
+
+        // save it
+        ImageIO.write(newBi, "png", target.toFile());
 
     }
 }
