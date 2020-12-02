@@ -95,7 +95,10 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
+                            <mainClass>com.mkyong.io.howto.resources.TestApp</mainClass>
+                            <!--
                             <mainClass>com.mkyong.io.utils.FileResourcesUtils</mainClass>
+                            -->
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>
