@@ -8,7 +8,6 @@ import static java.util.stream.Collectors.toMap;
 public class InitMap {
 
     public static Map<String, String> map5;
-
     static {
         // mutable Map
         map5 = new HashMap<>();
