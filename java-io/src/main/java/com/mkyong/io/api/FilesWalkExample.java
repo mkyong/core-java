@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.FileTime;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 // Files.walk example
@@ -30,7 +32,7 @@ public class FilesWalkExample {
     }
 
     // list all files from this path
-    /*public static List<Path> listFiles(Path path) throws IOException {
+    public static List<Path> listFiles(Path path) throws IOException {
 
         List<Path> result;
         //try (Stream<Path> walk = Files.walk(path, 1)) {
@@ -40,10 +42,10 @@ public class FilesWalkExample {
         }
         return result;
 
-    }*/
+    }
 
     // list all directories from this path
-    /*public static List<Path> listDirectories(Path path) throws IOException {
+    public static List<Path> listDirectories(Path path) throws IOException {
 
         List<Path> result;
         try (Stream<Path> walk = Files.walk(path)) {
@@ -89,10 +91,10 @@ public class FilesWalkExample {
         }
         return result;
 
-    }*/
+    }
 
     // fileSize in bytes
-    /*public static List<Path> findByFileSize(Path path, long fileSize) throws IOException {
+    public static List<Path> findByFileSize(Path path, long fileSize) throws IOException {
 
         if (!Files.isDirectory(path)) {
             throw new IllegalArgumentException("Path must be a directory!");
@@ -121,7 +123,7 @@ public class FilesWalkExample {
             System.err.println("Unable to get the file size of this file: " + path);
         }
         return result;
-    }*/
+    }
 
     // set all files' last modified time to this instant
     public static void setAllFilesModifiedDate(Path path, Instant instant) throws IOException {
