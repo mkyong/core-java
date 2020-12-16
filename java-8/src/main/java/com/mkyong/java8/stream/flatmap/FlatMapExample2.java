@@ -18,11 +18,13 @@ public class FlatMapExample2 {
                 .flatMap(order -> order.getLineItems().stream());
         */
 
+        // sum the line items's total amount
         BigDecimal sumOfLineItems = orders.stream()
                 .flatMap(order -> order.getLineItems().stream())    //  Stream<LineItem>
                 .map(line -> line.getTotal())                       //  Stream<BigDecimal>
                 .reduce(BigDecimal.ZERO, BigDecimal::add);          //  reduce to sum all
 
+        // sum the order's total amount
         BigDecimal sumOfOrder = orders.stream()
                 .map(order -> order.getTotal())                     //  Stream<BigDecimal>
                 .reduce(BigDecimal.ZERO, BigDecimal::add);          //  reduce to sum all
