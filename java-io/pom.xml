@@ -68,6 +68,13 @@
             <version>1.20</version>
         </dependency>
 
+        <!-- csv file -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
