@@ -31,54 +31,70 @@ public class CsvParserSimple {
     private static final char DEFAULT_SEPARATOR = ',';
     private static final char DOUBLE_QUOTES = '"';
     private static final char DEFAULT_QUOTE_CHAR = DOUBLE_QUOTES;
+    private static final String NEW_LINE = "\n";
 
     private boolean isMultiLine = false;
     private String pendingField = "";
     private String[] pendingFieldLine = new String[]{};
 
-    private boolean isFieldStarted = false;
-    private boolean isFieldClosed = false;
-
     public static void main(String[] args) throws Exception {
 
-        URL resource = CsvParserSimple.class.getClassLoader().getResource("csv/wikipedia.csv");
+        //URL resource = CsvParserSimple.class.getClassLoader().getResource("csv/wikipedia.csv");
+
+        // Loads file from resources folder
+        URL resource = CsvParserSimple.class.getClassLoader().getResource("csv/monitor.csv");
         File file = Paths.get(resource.toURI()).toFile();
 
         CsvParserSimple obj = new CsvParserSimple();
-        List<String[]> result = obj.readFile(file);
-        result.forEach(x -> System.out.println(Arrays.toString(x)));
+        List<String[]> result = obj.readFile(file, 1);
+
+        int listIndex = 0;
+        for (String[] arrays : result) {
+            System.out.println("\nString[" + listIndex++ + "] : " + Arrays.toString(arrays));
+
+            int index = 0;
+            for (String array : arrays) {
+                System.out.println(index++ + " : " + array);
+            }
+
+        }
 
     }
 
-    public List<String[]> readFile(File csvfile) throws Exception {
+    public List<String[]> readFile(File csvFile) throws Exception {
+        return readFile(csvFile, 0);
+    }
+
+    public List<String[]> readFile(File csvFile, int skipLine) throws Exception {
 
         List<String[]> result = new ArrayList<>();
+        int indexLine = 1;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvfile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
             String line;
             while ((line = br.readLine()) != null) {
 
+                if (indexLine++ <= skipLine) {
+                    continue;
+                }
+
                 String[] csvLineInArray = parseLine(line);
 
-                // multiline
-                if (pendingField.length() > 0) {
-                    pendingFieldLine = Arrays.copyOf(csvLineInArray, csvLineInArray.length);
+                if (isMultiLine) {
+                    pendingFieldLine = joinArrays(pendingFieldLine, csvLineInArray);
                 } else {
 
-                    // join two arrays
                     if (pendingFieldLine != null && pendingFieldLine.length > 0) {
-                        String[] r = Stream.concat(Arrays.stream(pendingFieldLine), Arrays.stream(csvLineInArray))
-                                .toArray(String[]::new);
-
-                        result.add(r);
-                        pendingFieldLine = null;
+                        // joins all fields and add to list
+                        result.add(joinArrays(pendingFieldLine, csvLineInArray));
+                        pendingFieldLine = new String[]{};
                     } else {
+                        // if dun want to support multiline, only this line is required.
                         result.add(csvLineInArray);
                     }
 
                 }
-
 
             }
         }
@@ -103,14 +119,16 @@ public class CsvParserSimple {
 
         StringBuilder field = new StringBuilder();
 
-        // convert line to char[] and loop one by one
         for (char c : line.toCharArray()) {
 
-            // handle embedded double quotes ""
-            if (c == DOUBLE_QUOTES) {
+            if (c == DOUBLE_QUOTES) {               // handle embedded double quotes ""
                 if (isFieldWithEmbeddedDoubleQuotes) {
-                    field.append(DOUBLE_QUOTES);
-                    isFieldWithEmbeddedDoubleQuotes = false;
+
+                    if (field.length() > 0) {       // handle for empty field like "",""
+                        field.append(DOUBLE_QUOTES);
+                        isFieldWithEmbeddedDoubleQuotes = false;
+                    }
+
                 } else {
                     isFieldWithEmbeddedDoubleQuotes = true;
                 }
@@ -118,43 +136,40 @@ public class CsvParserSimple {
                 isFieldWithEmbeddedDoubleQuotes = false;
             }
 
-            // for multiline
-            // any pending from the previous field?
-            if (pendingField.length() > 0) {
-                field.append(pendingField);
+            if (isMultiLine) {                      // multiline, add pending from the previous field
+                field.append(pendingField).append(NEW_LINE);
                 pendingField = "";
                 inQuotes = true;
+                isMultiLine = false;
             }
 
-            // General parsing
             if (c == quoteChar) {
                 inQuotes = !inQuotes;
             } else {
-                // if find separator and not in quotes, add field to a list's entry
-                if (c == separator && !inQuotes) {
+                if (c == separator && !inQuotes) {  // if find separator and not in quotes, add field to the list
                     result.add(field.toString());
-                    field.setLength(0);
+                    field.setLength(0);             // empty the field and ready for the next
                 } else {
-                    // else append the char into a field
-                    field.append(c);
+                    field.append(c);                // else append the char into a field
                 }
             }
 
         }
 
-        //line done, what to do?
+        //line done, what to do next?
         if (inQuotes) {
-            // multiline
-            pendingField = field.toString();
+            pendingField = field.toString();        // multiline
+            isMultiLine = true;
         } else {
-            //if remaining, add to result
-            if (field.length() > 0) {
-                result.add(field.toString());
-            }
+            result.add(field.toString());           // this is the last field
         }
 
         return result;
 
     }
 
+    private String[] joinArrays(String[] array1, String[] array2) {
+        return Stream.concat(Arrays.stream(array1), Arrays.stream(array2))
+                .toArray(String[]::new);
+    }
 }
