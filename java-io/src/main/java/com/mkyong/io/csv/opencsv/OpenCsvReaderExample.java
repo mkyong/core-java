@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-public class OpenCsvExample {
+public class OpenCsvReaderExample {
 
     public static void main(String[] args) throws IOException, CsvException, URISyntaxException {
 
@@ -29,7 +29,7 @@ public class OpenCsvExample {
     private static void readCsvWithEmbeddedSpecial() throws IOException, CsvException, URISyntaxException {
 
         // loads file from resource folder
-        URL resource = OpenCsvExample.class.getClassLoader().getResource("csv/monitor.csv");
+        URL resource = OpenCsvReaderExample.class.getClassLoader().getResource("csv/monitor.csv");
         File file = Paths.get(resource.toURI()).toFile();
 
         List<String[]> r;
