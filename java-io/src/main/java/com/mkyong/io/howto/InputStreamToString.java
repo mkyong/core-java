@@ -18,7 +18,7 @@ public class InputStreamToString {
         try (InputStream inputStream = uri.toURL().openStream()) {
 
             // InputStream -> String
-            String result = convertInputStreamToStringInputStreamReader(inputStream);
+            String result = convertInputStreamToString(inputStream);
             System.out.println(result);
 
         }
