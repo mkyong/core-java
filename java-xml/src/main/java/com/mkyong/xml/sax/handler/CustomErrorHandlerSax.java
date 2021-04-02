@@ -6,11 +6,11 @@ import org.xml.sax.SAXParseException;
 
 import java.io.PrintStream;
 
-public class CustomErrorHandler implements ErrorHandler {
+public class CustomErrorHandlerSax implements ErrorHandler {
 
     private PrintStream out;
 
-    CustomErrorHandler(PrintStream out) {
+    public CustomErrorHandlerSax(PrintStream out) {
         this.out = out;
     }
 

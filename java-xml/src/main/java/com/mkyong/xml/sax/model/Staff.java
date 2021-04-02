@@ -1,4 +1,4 @@
-package com.mkyong.xml;
+package com.mkyong.xml.sax.model;
 
 import java.math.BigDecimal;
 

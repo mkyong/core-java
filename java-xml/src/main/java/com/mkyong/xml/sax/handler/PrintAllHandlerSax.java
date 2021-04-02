@@ -1,27 +1,21 @@
 package com.mkyong.xml.sax.handler;
 
-import com.mkyong.xml.Staff;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-public class SAXStaffContentHandler extends DefaultHandler {
+// Scan ampersand characters (&) and left-angle bracket characters (<) and replace them with the strings &amp; or &lt;
+public class PrintAllHandlerSax extends DefaultHandler {
 
     private StringBuilder currentValue = new StringBuilder();
-    List<Staff> result;
-    Staff currentStaff;
 
-    public List<Staff> getResult() {
-        return result;
+    @Override
+    public void startDocument() {
+        System.out.println("Start Document");
     }
 
     @Override
-    public void startDocument() throws SAXException {
-        result = new ArrayList<>();
+    public void endDocument() {
+        System.out.println("End Document");
     }
 
     @Override
@@ -29,53 +23,48 @@ public class SAXStaffContentHandler extends DefaultHandler {
             String uri,
             String localName,
             String qName,
-            Attributes attributes) throws SAXException {
+            Attributes attributes) {
 
         // reset the tag value
         currentValue.setLength(0);
 
-        // start of loop
+        System.out.printf("Start Element : %s%n", qName);
+
         if (qName.equalsIgnoreCase("staff")) {
-
-            // new staff
-            currentStaff = new Staff();
-
-            // staff id
+            // get tag's attribute by name
             String id = attributes.getValue("id");
-            currentStaff.setId(Long.valueOf(id));
+            System.out.printf("Staff id : %s%n", id);
         }
 
         if (qName.equalsIgnoreCase("salary")) {
-            // salary currency
-            String currency = attributes.getValue("currency");
-            currentStaff.setCurrency(currency);
+            // get tag's attribute by index, 0 = first attribute
+            String currency = attributes.getValue(0);
+            System.out.printf("Currency :%s%n", currency);
         }
 
     }
 
+    @Override
     public void endElement(String uri,
                            String localName,
-                           String qName) throws SAXException {
+                           String qName) {
+
+        System.out.printf("End Element : %s%n", qName);
 
         if (qName.equalsIgnoreCase("name")) {
-            currentStaff.setName(currentValue.toString());
+            System.out.printf("Name : %s%n", currentValue.toString());
         }
 
         if (qName.equalsIgnoreCase("role")) {
-            currentStaff.setRole(currentValue.toString());
+            System.out.printf("Role : %s%n", currentValue.toString());
         }
 
         if (qName.equalsIgnoreCase("salary")) {
-            currentStaff.setSalary(new BigDecimal(currentValue.toString()));
+            System.out.printf("Salary : %s%n", currentValue.toString());
         }
 
         if (qName.equalsIgnoreCase("bio")) {
-            currentStaff.setBio(currentValue.toString());
-        }
-
-        // end of loop
-        if (qName.equalsIgnoreCase("staff")) {
-            result.add(currentStaff);
+            System.out.printf("Bio : %s%n", currentValue.toString());
         }
 
     }
@@ -83,7 +72,8 @@ public class SAXStaffContentHandler extends DefaultHandler {
     // http://www.saxproject.org/apidoc/org/xml/sax/ContentHandler.html#characters%28char%5B%5D,%20int,%20int%29
     // SAX parsers may return all contiguous character data in a single chunk,
     // or they may split it into several chunks
-    public void characters(char ch[], int start, int length) throws SAXException {
+    @Override
+    public void characters(char ch[], int start, int length) {
 
         // The characters() method can be called multiple times for a single text node.
         // Some values may missing if assign to a new string

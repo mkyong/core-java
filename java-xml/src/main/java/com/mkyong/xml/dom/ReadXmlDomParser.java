@@ -57,9 +57,9 @@ public class ReadXmlDomParser {
                     String id = element.getAttribute("id");
 
                     // get text
-                    String firstname = element.getElementsByTagName("firstname").item(0).getTextContent();
-                    String lastname = element.getElementsByTagName("lastname").item(0).getTextContent();
-                    String nickname = element.getElementsByTagName("nickname").item(0).getTextContent();
+                    String name = element.getElementsByTagName("name").item(0).getTextContent();
+                    String role = element.getElementsByTagName("role").item(0).getTextContent();
+                    String bio = element.getElementsByTagName("bio").item(0).getTextContent();
 
                     NodeList salaryNodeList = element.getElementsByTagName("salary");
                     String salary = salaryNodeList.item(0).getTextContent();
@@ -69,9 +69,9 @@ public class ReadXmlDomParser {
 
                     System.out.println("Current Element :" + node.getNodeName());
                     System.out.println("Staff Id : " + id);
-                    System.out.println("First Name : " + firstname);
-                    System.out.println("Last Name : " + lastname);
-                    System.out.println("Nick Name : " + nickname);
+                    System.out.println("Name : " + name);
+                    System.out.println("Role : " + role);
+                    System.out.println("Bio : " + bio);
                     System.out.printf("Salary [Currency] : %,.2f [%s]%n%n", Float.parseFloat(salary), currency);
 
                 }

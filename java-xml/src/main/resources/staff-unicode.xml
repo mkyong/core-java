@@ -1,15 +1,16 @@
-<?xml version="1.0"?>
-<company>
+<?xml version="1.0" encoding="utf-8"?>
+<Company>
     <staff id="1001">
-        <firstname>揚</firstname>
-        <lastname>木金</lastname>
-        <nickname>mkyong</nickname>
-        <salary currency="USD">100000</salary>
+        <name>揚木金</name>
+        <role>support</role>
+        <salary currency="USD">5000</salary>
+        <bio><![CDATA[HTML tag <code>testing</code>]]></bio>
     </staff>
-    <staff id="2001">
-        <firstname>low</firstname>
-        <lastname>yin fong</lastname>
-        <nickname>fong fong</nickname>
-        <salary currency="INR">200000</salary>
+    <staff id="1002">
+        <name>yflow</name>
+        <role>admin</role>
+        <salary currency="EUR">8000</salary>
+        <bio><![CDATA[a & b]]></bio>
     </staff>
-</company>
+</Company>
+

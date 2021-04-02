@@ -17,7 +17,7 @@ public class ReadXmlDomParserLoop {
         // Instantiate the Factory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-        try (InputStream is = readXmlFileIntoInputStream("staff-unicode.xml")) {
+        try (InputStream is = readXmlFileIntoInputStream("staff.xml")) {
 
             // optional, but recommended
             // process XML securely, avoid attacks like XML External Entities (XXE)
