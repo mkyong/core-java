@@ -18,6 +18,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <java.version>11</java.version>
         <junit.version>5.4.0</junit.version>
+        <jdom2.version>2.0.6</jdom2.version>
     </properties>
 
     <dependencies>
@@ -27,6 +28,12 @@
             <artifactId>junit-jupiter-params</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>${jdom2.version}</version>
         </dependency>
 
     </dependencies>
