@@ -2,7 +2,7 @@
 <Company>
     <staff id="1001">
         <name>揚木金</name>
-        <role>support</role>
+        <role>support &amp; code</role>
         <salary currency="USD">5000</salary>
         <bio><![CDATA[HTML tag <code>testing</code>]]></bio>
     </staff>
