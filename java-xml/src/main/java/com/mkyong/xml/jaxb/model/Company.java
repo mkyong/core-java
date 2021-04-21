@@ -9,7 +9,7 @@ import java.util.List;
 
 @XmlRootElement
 @XmlType(propOrder = {"name", "list"})
-// this tells jaxb impl  only takes fields for mapping
+// this tells jaxb impl only takes fields for mapping
 // by default, jaxb impl takes get/set pairs, public fields, and annotated non public fields as mapped, if we annotate the field, we get duplicated error
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Company {
@@ -39,4 +39,11 @@ public class Company {
         this.list = list;
     }
 
+    @Override
+    public String toString() {
+        return "Company{" +
+                "list=" + list +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

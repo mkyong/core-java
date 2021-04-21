@@ -1,10 +1,18 @@
 package com.mkyong.xml.jaxb.model;
 
-import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 // order of the fields in XML
-// @XmlType(propOrder = {"price", "name"})
+@XmlType(propOrder = {"price", "name"})
+
+// this tells jaxb impl only takes fields for mapping
+// by default, jaxb impl takes get/set pairs, public fields, and annotated non public fields as mapped, if we annotate the field, we get duplicated error
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Fruit {
 

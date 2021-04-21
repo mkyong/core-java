@@ -12,11 +12,9 @@ import org.eclipse.persistence.oxm.annotations.XmlCDATA;
 
 // Java 8?
 //import com.sun.xml.internal.txw2.annotation.XmlCDATA;
-/*import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;*/
+//import javax.xml.bind.annotation.*;
 import java.time.ZonedDateTime;
 
-// optional, order of the fields write to XML
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Staff {
@@ -68,5 +66,16 @@ public class Staff {
 
     public void setJoinDate(ZonedDateTime joinDate) {
         this.joinDate = joinDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", Salary='" + Salary + '\'' +
+                ", bio='" + bio + '\'' +
+                ", joinDate=" + joinDate +
+                '}';
     }
 }

@@ -2,7 +2,6 @@ package com.mkyong.xml.jaxb.adaptor;
 
 // @Since 3.0.0
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-
 //import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import java.time.ZonedDateTime;
