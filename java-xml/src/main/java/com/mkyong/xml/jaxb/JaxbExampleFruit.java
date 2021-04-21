@@ -1,10 +1,8 @@
 package com.mkyong.xml.jaxb;
 
 import com.mkyong.xml.jaxb.model.Fruit;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.*;
+
 import java.io.File;
 
 // http://blog.bdoughan.com/2011/05/specifying-eclipselink-moxy-as-your.html
