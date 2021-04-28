@@ -29,10 +29,12 @@ public class ReadXmlStAXEventParser {
 
     }
 
-    private static void printXmlByXmlEventReader(Path path) throws FileNotFoundException, XMLStreamException {
+    private static void printXmlByXmlEventReader(Path path)
+            throws FileNotFoundException, XMLStreamException {
 
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        XMLEventReader reader = xmlInputFactory.createXMLEventReader(new FileInputStream(path.toFile()));
+        XMLEventReader reader = xmlInputFactory.createXMLEventReader(
+                new FileInputStream(path.toFile()));
 
         // event iterator
         while (reader.hasNext()) {

@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class ReadXmlStAXCursorParser {
 
@@ -30,7 +31,7 @@ public class ReadXmlStAXCursorParser {
 
     }
 
-    public final static String getEventTypeString(int eventType) {
+    /*public final static String getEventTypeString(int eventType) {
         switch (eventType) {
             case XMLEvent.START_ELEMENT:
                 return "START_ELEMENT";
@@ -69,20 +70,20 @@ public class ReadXmlStAXCursorParser {
                 return "SPACE";
         }
         return "UNKNOWN_EVENT_TYPE , " + eventType;
-    }
+    }*/
 
-    private static void printXmlByXmlCursorReader(Path path) throws FileNotFoundException, XMLStreamException {
+    private static void printXmlByXmlCursorReader(Path path)
+            throws FileNotFoundException, XMLStreamException {
 
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        //XMLEventReader reader = xmlInputFactory.createXMLEventReader(new FileInputStream(path.toFile()));
-
-        XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(new FileInputStream(path.toFile()));
+        XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(
+                new FileInputStream(path.toFile()));
 
         int eventType = reader.getEventType();
-        System.out.println(eventType);
+        System.out.println(eventType);  // 7, START_DOCUMENT
         System.out.println(reader);
 
-        while(reader.hasNext()) {
+        while (reader.hasNext()) {
 
             eventType = reader.next();
 
@@ -95,75 +96,50 @@ public class ReadXmlStAXCursorParser {
                         System.out.printf("Staff id : %s%n", id);
                         break;
 
-                }
-
-            }
-            String eventTypeString = getEventTypeString(eventType);
-            System.out.println(eventTypeString);
-        }
-
-
-
-        // event iterator
-        /*while (reader.hasNext()) {
-
-            XMLEvent event = reader.nextEvent();
-
-            if (event.isStartElement()) {
-
-                StartElement element = event.asStartElement();
-
-                switch (element.getName().getLocalPart()) {
-                    // if <staff>
-                    case "staff":
-                        // id='1001'
-                        Attribute id = element.getAttributeByName(new QName("id"));
-                        System.out.printf("Staff id : %s%n", id.getValue());
-                        break;
                     case "name":
-                        // throws StartElementEvent cannot be cast to class javax.xml.stream.events.Characters
-                        // element.asCharacters().getData()
+                        eventType = reader.next();
+                        if (eventType == XMLEvent.CHARACTERS) {
+                            System.out.printf("Name : %s%n", reader.getText());
+                        }
+                        break;
 
-                        // this is still '<name>' tag, need move to next event for the character data
-                        event = reader.nextEvent();
-                        if (event.isCharacters()) {
-                            System.out.printf("Name : %s%n", event.asCharacters().getData());
-                        }
-                        break;
                     case "role":
-                        event = reader.nextEvent();
-                        if (event.isCharacters()) {
-                            System.out.printf("Role : %s%n", event.asCharacters().getData());
+                        eventType = reader.next();
+                        if (eventType == XMLEvent.CHARACTERS) {
+                            System.out.printf("Role : %s%n", reader.getText());
                         }
                         break;
+
                     case "salary":
-                        // currency='USD'
-                        Attribute currency = element.getAttributeByName(new QName("currency"));
-                        event = reader.nextEvent();
-                        if (event.isCharacters()) {
-                            String salary = event.asCharacters().getData();
+                        String currency = reader.getAttributeValue(null, "currency");
+                        eventType = reader.next();
+                        if (eventType == XMLEvent.CHARACTERS) {
+                            String salary = reader.getText();
                             System.out.printf("Salary [Currency] : %,.2f [%s]%n", Float.parseFloat(salary), currency);
                         }
                         break;
+
                     case "bio":
-                        event = reader.nextEvent();
-                        if (event.isCharacters()) {
-                            // CDATA, no problem.
-                            System.out.printf("Bio : %s%n", event.asCharacters().getData());
+                        eventType = reader.next();
+                        if (eventType == XMLEvent.CHARACTERS) {
+                            System.out.printf("Bio : %s%n", reader.getText());
                         }
                         break;
                 }
+
             }
 
-            if (event.isEndElement()) {
-                EndElement endElement = event.asEndElement();
+            if (eventType == XMLEvent.END_ELEMENT) {
                 // if </staff>
-                if (endElement.getName().getLocalPart().equals("staff")) {
+                if (reader.getName().getLocalPart().equals("staff")) {
                     System.out.printf("%n%s%n%n", "---");
                 }
             }
 
-        }*/
+            //String eventTypeString = getEventTypeString(eventType);
+            //System.out.println(eventTypeString);
+
+        }
 
     }
 
