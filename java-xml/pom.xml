@@ -36,12 +36,15 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- IndentingXMLStreamWriter -->
+        <!-- IndentingXMLStreamWriter
+        Cannot resolve com.bea.xml:jsr173-ri:1.0 -->
+        <!--
         <dependency>
             <groupId>net.java.dev.stax-utils</groupId>
             <artifactId>stax-utils</artifactId>
             <version>20070216</version>
         </dependency>
+        -->
 
         <dependency>
             <groupId>org.jdom</groupId>

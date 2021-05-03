@@ -1,50 +1,65 @@
 package com.mkyong.xml.stax;
 
-import javanet.staxutils.IndentingXMLStreamWriter;
-
-import javax.xml.crypto.dsig.Transform;
-import javax.xml.stream.XMLEventWriter;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stax.StAXSource;
+import javax.xml.stream.*;
+import javax.xml.stream.events.XMLEvent;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 public class WriteXmlStAX {
 
-    public static void main(String[] args) throws XMLStreamException, FileNotFoundException, TransformerException {
+    public static void main(String[] args) throws XMLStreamException, FileNotFoundException {
 
-        //FileOutputStream fileOutputStream = new FileOutputStream("test.xml");
+        //FileOutputStream out = new FileOutputStream("/home/mkyong/test.xml");
 
-        StringWriter out = new StringWriter();
-        writeXml(out);
-        // raw XML
-        System.out.println(out);
+        /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        // pretty print XML
-        String formattedXML = formatXML(out.toString());
-        System.out.println(formattedXML);
+        try (PrintStream out = new PrintStream(baos, true, StandardCharsets.UTF_8)) {
+
+            writeXml2(out);
+
+            // Java 10
+            String xml = baos.toString(StandardCharsets.UTF_8);
+            System.out.println(formatXML(xml));
+
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }*/
+
+        /*
+        String filePath = "/home/mkyong/test.xml";
+        try (FileOutputStream fileOutputStream =
+                     new FileOutputStream(filePath)) {
+
+            // Write to an XML file.
+            writeXml2(fileOutputStream);
+
+        } catch (XMLStreamException | IOException e) {
+            e.printStackTrace();
+        }*/
+
+        //System.out.println("Done");
 
     }
 
-    private static void writeXml(Writer out) throws XMLStreamException {
+    private static void writeXml(OutputStream out) throws XMLStreamException {
 
         XMLOutputFactory output = XMLOutputFactory.newInstance();
 
-        //XMLStreamWriter writer = output.createXMLStreamWriter(new FileOutputStream("test.xml"));
-        //XMLStreamWriter writer = output.createXMLStreamWriter(stream);
+        // StAX Cursor API
         XMLStreamWriter writer = output.createXMLStreamWriter(out);
-
-        // needs third party stax-utils library
-        // writer = new IndentingXMLStreamWriter(writer);
 
         writer.writeStartDocument("utf-8", "1.0");
 
-        writer.writeStartElement("Company");
+        // <company>
+        writer.writeStartElement("company");
 
         // <staff>
         writer.writeStartElement("staff");
@@ -87,6 +102,60 @@ public class WriteXmlStAX {
         // </staff>
 
         writer.writeEndDocument();
+        // </company>
+
+        writer.flush();
+
+        writer.close();
+
+    }
+
+    private static void writeXml2(OutputStream out) throws XMLStreamException {
+
+        XMLOutputFactory output = XMLOutputFactory.newInstance();
+        XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+
+        // StAX Iterator API
+        XMLEventWriter writer = output.createXMLEventWriter(out);
+
+        XMLEvent event = eventFactory.createStartDocument();
+        // default
+        //event = eventFactory.createStartDocument("utf-8", "1.0");
+        writer.add(event);
+
+        writer.add(eventFactory.createStartElement("", "", "company"));
+
+        // write XML comment
+        writer.add(eventFactory.createComment("This is staff 1001"));
+
+        writer.add(eventFactory.createStartElement("", "", "staff"));
+        // write XML attribute
+        writer.add(eventFactory.createAttribute("id", "1001"));
+
+        writer.add(eventFactory.createStartElement("", "", "name"));
+        writer.add(eventFactory.createCharacters("mkyong"));
+        writer.add(eventFactory.createEndElement("", "", "name"));
+
+        writer.add(eventFactory.createStartElement("", "", "salary"));
+        writer.add(eventFactory.createAttribute("currency", "USD"));
+        writer.add(eventFactory.createCharacters("5000"));
+        writer.add(eventFactory.createEndElement("", "", "salary"));
+
+        writer.add(eventFactory.createStartElement("", "", "bio"));
+        // write XML CData
+        writer.add(eventFactory.createCData("HTML tag <code>testing</code>"));
+        writer.add(eventFactory.createEndElement("", "", "bio"));
+
+        // </staff>
+        writer.add(eventFactory.createEndElement("", "", "staff"));
+
+        // next staff, tired to write more
+        // writer.add(eventFactory.createStartElement("", "", "staff"));
+        // writer.add(eventFactory.createAttribute("id", "1002"));
+        // writer.add(eventFactory.createEndElement("", "", "staff"));
+
+        // end here.
+        writer.add(eventFactory.createEndDocument());
 
         writer.flush();
 
@@ -99,26 +168,18 @@ public class WriteXmlStAX {
         // write the content into xml file
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
+
+        // pretty print by indention
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
         StreamSource source = new StreamSource(new StringReader(xml));
 
         StringWriter output = new StringWriter();
-        StreamResult result = new StreamResult(output);
 
-        transformer.transform(source, result);
+        transformer.transform(source, new StreamResult(output));
 
         return output.toString();
 
-        // Output to console for testing
-        //StreamResult result = new StreamResult(System.out);
-
-        /*Transformer t = TransformerFactory.newInstance().newTransformer();
-        t.setOutputProperty(OutputKeys.INDENT, "yes");
-        t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-        Writer out = new StringWriter();
-        t.transform(new StreamSource(new StringReader(xml)), new StreamResult(out));
-        return out.toString();*/
-
     }
+
 }
