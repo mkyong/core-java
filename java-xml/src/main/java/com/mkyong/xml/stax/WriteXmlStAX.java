@@ -2,58 +2,31 @@ package com.mkyong.xml.stax;
 
 import javax.xml.stream.*;
 import javax.xml.stream.events.XMLEvent;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
 
 public class WriteXmlStAX {
 
-    public static void main(String[] args) throws XMLStreamException, FileNotFoundException {
+    public static void main(String[] args) throws XMLStreamException {
 
-        //FileOutputStream out = new FileOutputStream("/home/mkyong/test.xml");
-
-        /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-        try (PrintStream out = new PrintStream(baos, true, StandardCharsets.UTF_8)) {
-
+        // send the output to a xml file
+        try (FileOutputStream out = new FileOutputStream("/home/mkyong/test.xml")) {
             writeXml2(out);
-
-            // Java 10
-            String xml = baos.toString(StandardCharsets.UTF_8);
-            System.out.println(formatXML(xml));
-
-        } catch (TransformerException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
-        /*
-        String filePath = "/home/mkyong/test.xml";
-        try (FileOutputStream fileOutputStream =
-                     new FileOutputStream(filePath)) {
-
-            // Write to an XML file.
-            writeXml2(fileOutputStream);
-
-        } catch (XMLStreamException | IOException e) {
-            e.printStackTrace();
-        }*/
-
-        //System.out.println("Done");
+        // send the output to System.out
+        // writeXml(System.out);
 
     }
 
+    // StAX Cursor API
     private static void writeXml(OutputStream out) throws XMLStreamException {
 
         XMLOutputFactory output = XMLOutputFactory.newInstance();
 
-        // StAX Cursor API
         XMLStreamWriter writer = output.createXMLStreamWriter(out);
 
         writer.writeStartDocument("utf-8", "1.0");
@@ -62,6 +35,9 @@ public class WriteXmlStAX {
         writer.writeStartElement("company");
 
         // <staff>
+        // add XML comment
+        writer.writeComment("This is Staff 1001");
+
         writer.writeStartElement("staff");
         writer.writeAttribute("id", "1001");
 
@@ -110,6 +86,7 @@ public class WriteXmlStAX {
 
     }
 
+    // StAX Iterator API
     private static void writeXml2(OutputStream out) throws XMLStreamException {
 
         XMLOutputFactory output = XMLOutputFactory.newInstance();
@@ -160,25 +137,6 @@ public class WriteXmlStAX {
         writer.flush();
 
         writer.close();
-
-    }
-
-    private static String formatXML(String xml) throws TransformerException {
-
-        // write the content into xml file
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-
-        // pretty print by indention
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-        StreamSource source = new StreamSource(new StringReader(xml));
-
-        StringWriter output = new StringWriter();
-
-        transformer.transform(source, new StreamResult(output));
-
-        return output.toString();
 
     }
 
