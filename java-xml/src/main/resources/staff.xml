@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Company>
+<company>
     <staff id="1001">
         <name>mkyong</name>
         <role>support</role>
@@ -13,4 +13,4 @@
         <salary currency="EUR">8000</salary>
         <bio><![CDATA[a & b]]></bio>
     </staff>
-</Company>
+</company>
