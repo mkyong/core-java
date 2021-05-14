@@ -11,14 +11,14 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class ReadXmlAlexaApi {
+public class ReadXmlAlexaApiDomParser {
 
     private static final String ALEXA_API = "http://data.alexa.com/data?cli=10&url=";
     private final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
     public static void main(String[] args) {
 
-        ReadXmlAlexaApi obj = new ReadXmlAlexaApi();
+        ReadXmlAlexaApiDomParser obj = new ReadXmlAlexaApiDomParser();
         int alexaRanking = obj.getAlexaRanking("mkyong.com");
 
         System.out.println("Ranking: " + alexaRanking);

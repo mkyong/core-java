@@ -30,10 +30,10 @@ public class ReadXmlDomParser {
             DocumentBuilder db = dbf.newDocumentBuilder();
 
             // read from a path
-            Document doc = db.parse(new File(FILENAME));
+            //Document doc = db.parse(new File(FILENAME));
 
             // read from a project's resources folder
-            //Document doc = db.parse(is);
+            Document doc = db.parse(is);
 
             // optional, but recommended
             // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
