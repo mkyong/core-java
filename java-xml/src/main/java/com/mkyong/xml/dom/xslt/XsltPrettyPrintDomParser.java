@@ -15,7 +15,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 
-public class xsltPrettyPrintDomParser {
+public class XsltPrettyPrintDomParser {
 
     private static final String XML_FILENAME = "src/main/resources/staff-simple.xml";
     private static final String XSLT_FILENAME = "src/main/resources/xslt/staff-format.xslt";

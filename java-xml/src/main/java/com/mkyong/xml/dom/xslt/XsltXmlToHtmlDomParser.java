@@ -15,7 +15,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 
 // XML -> XSLT -> Other formats
-public class xsltXmlToHtmlDomParser {
+public class XsltXmlToHtmlDomParser {
 
     private static final String XML_FILENAME = "src/main/resources/staff-simple.xml";
     private static final String XSLT_FILENAME = "src/main/resources/xslt/staff-xml-html.xslt";
