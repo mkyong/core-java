@@ -18,7 +18,8 @@ import java.io.*;
 public class ModifyXmlDomParser {
 
     private static final String FILENAME = "src/main/resources/staff-simple.xml";
-    private static final String FORMAT_XSLT = "src/main/resources/staff-format.xslt";
+    // xslt for pretty print only, no special task
+    private static final String FORMAT_XSLT = "src/main/resources/xslt/staff-format.xslt";
 
     public static void main(String[] args) {
 
@@ -31,7 +32,7 @@ public class ModifyXmlDomParser {
             Document doc = db.parse(is);
 
             NodeList listOfStaff = doc.getElementsByTagName("staff");
-            System.out.println(listOfStaff.getLength());
+            //System.out.println(listOfStaff.getLength()); // 2
 
             for (int i = 0; i < listOfStaff.getLength(); i++) {
                 // get first staff
@@ -118,9 +119,16 @@ public class ModifyXmlDomParser {
 
             }
 
-            writeXml(doc, System.out);
+            // output to console
+            // writeXml(doc, System.out);
 
-        } catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
+            try (FileOutputStream output =
+                         new FileOutputStream("c:\\test\\staff-modified.xml")) {
+                writeXml(doc, output);
+            }
+
+        } catch (ParserConfigurationException | SAXException
+                | IOException | TransformerException e) {
             e.printStackTrace();
         }
 
@@ -135,9 +143,10 @@ public class ModifyXmlDomParser {
 
         // The default add many empty new line, not sure why?
         // https://stackoverflow.com/questions/58478632/how-to-avoid-extra-blank-lines-in-xml-generation-with-java
+        // https://mkyong.com/java/pretty-print-xml-with-java-dom-and-xslt/
         // Transformer transformer = transformerFactory.newTransformer();
 
-        // add a xslt to remove the new line
+        // add a xslt to remove the extra newlines
         Transformer transformer = transformerFactory.newTransformer(
                 new StreamSource(new File(FORMAT_XSLT)));
 

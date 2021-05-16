@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Server config file</comment>
+    <entry key="http.port">8080</entry>
+    <entry key="email.support">donot-spam-me@nospam.com</entry>
+    <entry key="http.server">localhost</entry>
+    <entry key="http.port">8080</entry>
+</properties>
