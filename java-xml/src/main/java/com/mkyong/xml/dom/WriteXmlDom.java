@@ -98,6 +98,14 @@ public class WriteXmlDom {
         // print XML to system console
         writeXml(doc, System.out);
 
+        // write dom document to a file
+        /*try (FileOutputStream output =
+                     new FileOutputStream("c:\\test\\staff-dom.xml")) {
+            writeXml(doc, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
     }
 
     // write doc to output stream

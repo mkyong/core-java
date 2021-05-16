@@ -5,11 +5,13 @@ import org.jdom2.Comment;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.StringReader;
 
 public class WriteXmlJDom {
 
@@ -96,18 +98,20 @@ public class WriteXmlJDom {
 
     }
 
-    /*private static void writeSimpleXml() throws JDOMException, IOException {
+    private static void writeSimpleXml() throws JDOMException, IOException {
 
         String xml = "<root><child id=\"100\">mkyong</child></root>";
         SAXBuilder sb = new SAXBuilder();
         Document doc = sb.build(new StringReader(xml));
 
         //XMLOutputter xmlOutputter = new XMLOutputter();
+
+        // pretty print
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
 
         // output to console
         xmlOutputter.output(doc, System.out);
 
-    }*/
+    }
 
 }

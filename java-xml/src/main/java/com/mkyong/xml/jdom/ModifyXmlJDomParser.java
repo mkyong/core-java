@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class ModifyXmlJDom {
+public class ModifyXmlJDomParser {
 
     private static final String FILENAME = "src/main/resources/staff.xml";
 

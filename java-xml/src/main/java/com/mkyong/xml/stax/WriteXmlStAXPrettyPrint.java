@@ -29,7 +29,6 @@ public class WriteXmlStAXPrettyPrint {
 
             // standard way to convert byte array to String
             // String xml = new String(out.toByteArray(), StandardCharsets.UTF_8);
-
             // System.out.println(formatXML(xml));
 
             String prettyPrintXML = formatXML(xml);
@@ -38,8 +37,8 @@ public class WriteXmlStAXPrettyPrint {
             System.out.println(prettyPrintXML);
 
             // Java 11 - write to file
-            Files.writeString(Paths.get("/home/mkyong/test.xml"),
-                    prettyPrintXML, StandardCharsets.UTF_8);
+            /*Files.writeString(Paths.get("/home/mkyong/test.xml"),
+                    prettyPrintXML, StandardCharsets.UTF_8);*/
 
             // Java 7 - write to file
             //Files.write(Paths.get("/home/mkyong/test.xml"), prettyPrintXML.getBytes(StandardCharsets.UTF_8));
@@ -52,7 +51,7 @@ public class WriteXmlStAXPrettyPrint {
                 e.printStackTrace();
             }*/
 
-        } catch (TransformerException | XMLStreamException | IOException e) {
+        } catch (TransformerException | XMLStreamException /*| IOException*/ e) {
             e.printStackTrace();
         }
 
@@ -148,7 +147,7 @@ public class WriteXmlStAXPrettyPrint {
         // pretty print by indention
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
-        // add standalone="yes", add line break before the root element
+        // add standalone="yes" or "no", add line break before the root element
         transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
 
         /*transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
