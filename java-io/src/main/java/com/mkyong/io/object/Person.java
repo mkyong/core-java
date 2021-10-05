@@ -11,6 +11,7 @@ public class Person implements Serializable {
 
     private String name;
     private int age;
+
     // dun save this field into file
     private transient BigDecimal salary;
 
