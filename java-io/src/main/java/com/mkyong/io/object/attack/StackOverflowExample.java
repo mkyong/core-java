@@ -11,13 +11,6 @@ public class StackOverflowExample {
     public static void main(String[] args) {
         System.out.println(bomb().length);
 
-        /*ObjectInputFilter filter =
-                ObjectInputFilter.Config.createFilter(
-                        "maxdepth=2;com.mkyong.io.object.*;java.base/*;!*");
-        Person person = new Person("mkyong", 41, new BigDecimal(900));
-        var bytes = SerializationUtils.writeObjectToStream(person);
-        SerializationUtils.deserializeFilter(bytes, filter);*/
-
         //deserialize(bomb());  // throws StackOverflow
 
         ObjectInputFilter filter =

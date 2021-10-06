@@ -9,11 +9,13 @@ public class HelloSerializationFile {
 
         Person person = new Person("mkyong", 50, new BigDecimal(1000));
 
-        File file = new File("person.anything");
+        File file = new File("person.bin");
 
         writeObjectToFile(person, file);
 
         Person p = readObjectFromFile(file);
+
+        //Person p = (Person) readObjectFromFile2(file);
 
         System.out.println(p);
 
@@ -36,6 +38,17 @@ public class HelloSerializationFile {
         try (FileInputStream fis = new FileInputStream(file);
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             result = (Person) ois.readObject();
+        }
+        return result;
+    }
+
+    // Deserialization
+    // Get object from a file.
+    public static Object readObjectFromFile2(File file) throws IOException, ClassNotFoundException {
+        Object result = null;
+        try (FileInputStream fis = new FileInputStream(file);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            result = ois.readObject();
         }
         return result;
     }
