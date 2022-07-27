@@ -1,19 +1,14 @@
 package com.mkyong.xml.stax;
 
-import javax.xml.namespace.QName;
-import javax.xml.stream.XMLEventReader;
+import javax.xml.XMLConstants;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.events.Attribute;
-import javax.xml.stream.events.EndElement;
-import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 public class ReadXmlStAXCursorParser {
 
@@ -76,6 +71,12 @@ public class ReadXmlStAXCursorParser {
             throws FileNotFoundException, XMLStreamException {
 
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+
+        // https://rules.sonarsource.com/java/RSPEC-2755
+        // prevent xxe
+        xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
         XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(
                 new FileInputStream(path.toFile()));
 

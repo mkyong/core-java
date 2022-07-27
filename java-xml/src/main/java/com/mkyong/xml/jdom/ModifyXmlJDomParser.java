@@ -9,6 +9,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import javax.xml.XMLConstants;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,6 +22,12 @@ public class ModifyXmlJDomParser {
     public static void main(String[] args) throws JDOMException, IOException {
 
         SAXBuilder sax = new SAXBuilder();
+
+        // https://rules.sonarsource.com/java/RSPEC-2755
+        // prevent xxe
+        sax.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        sax.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
         Document doc = sax.build(new File(FILENAME));
 
         Element rootNode = doc.getRootElement();

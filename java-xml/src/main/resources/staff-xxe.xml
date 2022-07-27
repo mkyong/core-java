@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE foo [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>
+<company>
+    <staff id="1001">
+        <name>&xxe;</name>
+        <role>support</role>
+        <salary currency="USD">5000</salary>
+        <!-- for special characters like < &, need CDATA -->
+        <bio><![CDATA[HTML tag <code>testing</code>]]></bio>
+    </staff>
+</company>

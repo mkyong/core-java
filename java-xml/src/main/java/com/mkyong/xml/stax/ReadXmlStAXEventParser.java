@@ -1,5 +1,6 @@
 package com.mkyong.xml.stax;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -33,6 +34,12 @@ public class ReadXmlStAXEventParser {
             throws FileNotFoundException, XMLStreamException {
 
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+
+        // https://rules.sonarsource.com/java/RSPEC-2755
+        // prevent xxe
+        xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
         XMLEventReader reader = xmlInputFactory.createXMLEventReader(
                 new FileInputStream(path.toFile()));
 

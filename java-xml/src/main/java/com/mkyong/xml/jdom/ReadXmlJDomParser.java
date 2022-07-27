@@ -5,6 +5,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import javax.xml.XMLConstants;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 public class ReadXmlJDomParser {
 
     private static final String FILENAME = "src/main/resources/staff.xml";
+
     //private static final String FILENAME = "c://test//staff.xml";
 
     // https://github.com/hunterhacker/jdom/wiki/JDOM2-A-Primer
@@ -21,6 +23,12 @@ public class ReadXmlJDomParser {
         try {
 
             SAXBuilder sax = new SAXBuilder();
+
+            // https://rules.sonarsource.com/java/RSPEC-2755
+            // prevent xxe
+            sax.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            sax.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
             // XML is a local file
             Document doc = sax.build(new File(FILENAME));
 

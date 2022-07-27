@@ -5,6 +5,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import javax.xml.XMLConstants;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -18,6 +19,12 @@ public class ReadXmlAlexaApiJDomParser {
         try {
 
             SAXBuilder sax = new SAXBuilder();
+
+            // https://rules.sonarsource.com/java/RSPEC-2755
+            // prevent xxe
+            sax.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            sax.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
             // XML is in a web-based location
             Document doc = sax.build(new URL(REMOTE_URL));
 

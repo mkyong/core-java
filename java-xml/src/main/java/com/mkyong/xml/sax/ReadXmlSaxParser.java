@@ -1,7 +1,8 @@
 package com.mkyong.xml.sax;
 
-import com.mkyong.xml.sax.handler.CountElementHandlerSax;
+import com.mkyong.xml.sax.handler.PrintAllHandlerSax;
 import org.xml.sax.SAXException;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -19,10 +20,15 @@ public class ReadXmlSaxParser {
 
         try {
 
+            // https://rules.sonarsource.com/java/RSPEC-2755
+            // prevent XXE, completely disable DOCTYPE declaration:
+            // factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+
             SAXParser saxParser = factory.newSAXParser();
 
-            // PrintAllHandlerSax handler = new PrintAllHandlerSax();
-            // saxParser.parse(FILENAME, handler);
+            PrintAllHandlerSax handler = new PrintAllHandlerSax();
+
+            saxParser.parse(FILENAME, handler);
 
             /*XMLReader xmlReader = saxParser.getXMLReader();
             xmlReader.setContentHandler(handler);
@@ -32,10 +38,10 @@ public class ReadXmlSaxParser {
             xmlReader.parse(source);*/
 
             // count elements name known as "staff"
-            CountElementHandlerSax countStaffHandler = new CountElementHandlerSax("staff");
+            /*CountElementHandlerSax countStaffHandler = new CountElementHandlerSax("staff");
             saxParser.parse(FILENAME, countStaffHandler);
 
-            System.out.println("Number of staff elements : " + countStaffHandler.getCount());
+            System.out.println("Number of staff elements : " + countStaffHandler.getCount());*/
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
