@@ -9,8 +9,8 @@ public class StringSplitSpecialBackslash {
         String dir = "C:\\Users\\mkyong\\projects\\mkyong-tutorials";
 
         // three ways to escape regex special character
-        //String[] output = dir.split("\\\\");
-        //String[] output = dir.split("[\\\\]");
+        // String[] output = dir.split("\\\\");
+        // String[] output = dir.split("[\\\\]");
         String[] output = dir.split(Pattern.quote("\\"));
 
         for (String s : output) {
